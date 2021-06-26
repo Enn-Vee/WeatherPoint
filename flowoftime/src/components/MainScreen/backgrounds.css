@@ -1,0 +1,62 @@
+.clear {
+  background: linear-gradient(50deg, #00aeff, #ffffff);
+}
+
+.cloudy {
+  background: linear-gradient(0deg, #000000, #989898, #989898, #989898);
+}
+
+.background {
+  background-size: 400% 400%;
+
+  -webkit-animation: BackgroundAnimation 20s ease infinite;
+  -moz-animation: BackgroundAnimation 20s ease infinite;
+  -o-animation: BackgroundAnimation 20s ease infinite;
+  animation: BackgroundAnimation 20s ease infinite;
+}
+
+@-webkit-keyframes BackgroundAnimation {
+  0% {
+    background-position: 0% 15%;
+  }
+  50% {
+    background-position: 100% 85%;
+  }
+  100% {
+    background-position: 0% 15%;
+  }
+}
+@-moz-keyframes BackgroundAnimation {
+  0% {
+    background-position: 0% 15%;
+  }
+  50% {
+    background-position: 100% 85%;
+  }
+  100% {
+    background-position: 0% 15%;
+  }
+}
+@-o-keyframes BackgroundAnimation {
+  0% {
+    background-position: 0% 15%;
+  }
+  50% {
+    background-position: 100% 85%;
+  }
+  100% {
+    background-position: 0% 15%;
+  }
+}
+
+@keyframes BackgroundAnimation {
+  0% {
+    background-position: 0% 10%;
+  }
+  50% {
+    background-position: 100% 85%;
+  }
+  100% {
+    background-position: 0% 20%;
+  }
+}

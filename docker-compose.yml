@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+    web:
+        build: ./flowoftime
+        ports: 
+            - "8080:3000"
+        volumes:
+            - ./flowoftime:/app
+        env_file:
+            - frontend.env
