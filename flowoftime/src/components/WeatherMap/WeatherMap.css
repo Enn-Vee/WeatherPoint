@@ -1,0 +1,30 @@
+#toggle-button {
+  display: none;
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  width: 140px;
+  height: 35px;
+  border-radius: 30px;
+  color: white;
+}
+
+#map {
+  position: relative;
+  height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  #toggle-button {
+    display: block;
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transition: all 0.1s ease-in;
+  }
+}

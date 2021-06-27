@@ -1,7 +1,51 @@
-.navbar {
-  margin: 0;
+nav {
+  padding: 0;
+}
+
+.nav-item {
+  transition: 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.offcanvas-body ul {
+  color: black;
+}
+
+.nav-item + .nav-item {
+  border-left: 1px solid;
+}
+
+.nav-item button:hover {
+  text-decoration: underline !important;
 }
 
 .navbar-brand {
-  padding-left: "4vw";
+  margin: 0;
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    width: 100%;
+  }
+  .offcanvas {
+    color: black !important;
+  }
+  .offcanvas ul li button {
+    color: black !important;
+  }
+  .offcanvas li + li {
+    border-top: 1px solid;
+    border-left: 0px !important;
+  }
+  .offcanvas-body {
+    padding: 0;
+  }
+}
+
+@media only screen and (max-width: 386px) {
+  .navbar {
+    padding: 0 5% 0 5% !important;
+  }
 }

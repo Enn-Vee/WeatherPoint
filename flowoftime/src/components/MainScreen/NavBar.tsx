@@ -3,18 +3,18 @@ import './NavBar.css'
 
 function NavBar() {
     return (
-        <nav className="navbar navbar-dark bg-dark">
-            <h1 className="navbar-brand">
-                <div>
-                    <div className="logo-triangle">
-
-                    </div>
-                    <div className="logo-circle">
-
-                    </div>
-                </div>
-            </h1>
-        </nav>
+    <nav className="navbar navbar-expand px-5 mt-3 navbar-dark">
+            <h1 className="navbar-brand" >WeatherPoint</h1>
+            <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                    <button>Register</button>
+                </li>
+                <li className="nav-item">
+                    <button>Login</button>
+                </li>
+            </ul>
+            
+    </nav>
     )
 }
 

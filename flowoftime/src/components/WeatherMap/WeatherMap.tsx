@@ -4,6 +4,7 @@ import LatLngObject from '../../interfaces/Coordinates';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { changeCoordinates } from '../../redux/reducers/coordinatesReducer';
 import { toggleIsMap } from '../../redux/reducers/isMapReducer';
+import "./WeatherMap.css"
 
 function WeatherMap(center: LatLngObject) {
 
@@ -32,7 +33,7 @@ function WeatherMap(center: LatLngObject) {
     }
 
     return (
-        <div id="map" className={`col-md-6 ${isMap ? 'show' : ''}`} style={{ padding: 0, margin: 0 }}>
+        <div id="map" className={`col-md-6 ${isMap ? 'show-screen' : ''}`} style={{ padding: 0, margin: 0}}>
             {isLoaded ?
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '100%' }}
@@ -47,10 +48,10 @@ function WeatherMap(center: LatLngObject) {
                 >
                     <Marker position={{ lat: lat, lng: lng }} />
                 </GoogleMap> : null}
-                <button className="swap-button" onClick={(e) => {
+                <button id="toggle-button" onClick={(e) => {
                         e.preventDefault()
                         dispatch(toggleIsMap())
-                    }} style={{position:"absolute", top:"2vh", left:"50%", transform:"translateX(-50%)"}}>Swap</button>
+                    }} style={{}}>Back To Main</button>
         </div>
     )
 }

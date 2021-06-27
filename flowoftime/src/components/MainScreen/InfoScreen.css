@@ -1,28 +1,32 @@
-.swap-button {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 #time {
   font-size: 5rem;
   font-weight: 800;
 }
 
-@media only screen and (max-width: 768px) {
-  .swap-button {
-    position: absolute;
-    background: none;
-    border: none;
-    top: 0;
-    right: 0;
-    display: block;
+@media only screen and (max-width: 420px) {
+  #time {
+    font-size: 3.5rem;
   }
 }
 
-@media only screen and (max-width: 420px) {
-  #time {
-    font-size: 4.3rem;
+#location-data {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+#data {
+  position: relative;
+  height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  #data {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transition: all 0.1s ease-in;
   }
 }

@@ -1,5 +1,19 @@
 .clear {
-  background: linear-gradient(50deg, #00aeff, #ffffff);
+  background: linear-gradient(5deg, #00aeff, #ffffff, #ffffff);
+  color: black;
+  border-color: black;
+}
+
+.clear button {
+}
+
+.night {
+  background: linear-gradient(5deg, #0b0049, #005a7b, #005a7b);
+  color: white !important;
+}
+
+.night button {
+  color: white !important;
 }
 
 .cloudy {
@@ -9,54 +23,54 @@
 .background {
   background-size: 400% 400%;
 
-  -webkit-animation: BackgroundAnimation 20s ease infinite;
-  -moz-animation: BackgroundAnimation 20s ease infinite;
-  -o-animation: BackgroundAnimation 20s ease infinite;
-  animation: BackgroundAnimation 20s ease infinite;
+  -webkit-animation: BackgroundAnimation 10s ease-out infinite;
+  -moz-animation: BackgroundAnimation 10s ease-out infinite;
+  -o-animation: BackgroundAnimation 10s ease-out infinite;
+  animation: BackgroundAnimation 10s ease-out infinite;
 }
 
 @-webkit-keyframes BackgroundAnimation {
   0% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
   50% {
     background-position: 100% 85%;
   }
   100% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
 }
 @-moz-keyframes BackgroundAnimation {
   0% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
   50% {
     background-position: 100% 85%;
   }
   100% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
 }
 @-o-keyframes BackgroundAnimation {
   0% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
   50% {
     background-position: 100% 85%;
   }
   100% {
-    background-position: 0% 15%;
+    background-position: 0% 70%;
   }
 }
 
 @keyframes BackgroundAnimation {
   0% {
-    background-position: 0% 10%;
+    background-position: 0% 70%;
   }
   50% {
     background-position: 100% 85%;
   }
   100% {
-    background-position: 0% 20%;
+    background-position: 0% 70%;
   }
 }

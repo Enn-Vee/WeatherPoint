@@ -1,39 +1,45 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { setLanguage, setUnit } from '../../redux/reducers/infoSettingsReducer';
+import { toggleIsMap } from '../../redux/reducers/isMapReducer';
 import './Footer.css'
 
 function Footer() {
-
-    const { timezone, unit, locale, language } = useAppSelector(state => state.infoSettings)
     const dispatch = useAppDispatch();
-
     const handleLanguangeChange = (lang:string) => {
         dispatch(setLanguage(lang));
     }
 
     return (
-        <div id="footer" className="w-100" >
-            <ul style={{listStyle:"none", padding:0, margin: "0", height:"100%"}}>
-                <li >
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(setUnit('standard'))
-                    }}>Standard</button>
-                </li>
-                <li>
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(setUnit('metric'))
-                    }}>Metric</button>
-                </li>
-                <li>
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(setUnit('imperial'))
-                    }}>Imperial</button>
-                </li>
-            </ul>  
+        <div id="footer" className="d-flex justify-content-between" >
+            <div>
+                <ul>
+                    <li className="footer-item" >
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            dispatch(setUnit('standard'))
+                        }}>Standard</button>
+                    </li>
+                    <li className="footer-item">
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            dispatch(setUnit('metric'))
+                        }}>Metric</button>
+                    </li>
+                    <li className="footer-item">
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            dispatch(setUnit('imperial'))
+                        }}>Imperial</button>
+                    </li>
+                </ul>
+            </div>
+            <div className="footer-item">
+                <button id="map-toggler" onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(toggleIsMap());
+                }}>Go To Map</button>
+            </div>
             {/*<div style={{display:"none"}}>
                 <select>
                     <option value="af">Afrikaans</option>

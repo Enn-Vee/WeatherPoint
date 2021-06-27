@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios'
 import OpenWeatherMap from '../../interfaces/OpenWeatherMap';
 import * as Moment from 'moment-timezone'
-import { toggleIsMap } from '../../redux/reducers/isMapReducer';
 import { setLanguage, setTimezone } from '../../redux/reducers/infoSettingsReducer';
 import Footer from './Footer';
 import NavBar from './NavBar';
@@ -91,10 +90,11 @@ function InfoScreen() {
     return (
         <>
             {!isFetchingData ?
-                <div className={`p-0 text-center col-md-6 background clear position-relative ${isMap ? '' : 'show'}`}>
+                <div id="data" className={`container p-0 text-center col-md-6 background clear position-relative
+                ${weatherData?.weather[0].icon.charAt(2) === 'n'? 'night' : ''} ${isMap ? '' : 'show-screen'}`}>
                     <NavBar />
-                    <div style={{position:"relative", paddingTop: "30px", paddingBottom:"26px"}}>
-                        <div className="my-5">
+                    <div id="location-data">
+                        <div>
                             <h1 id="time">
                                 {dateTime.toLocaleTimeString(locale, {
                                     timeZone: (timezone?.length > 0) ? timezone : Moment.tz.guess()
@@ -112,7 +112,7 @@ function InfoScreen() {
                         {!(weatherData?.name.length === 0) ? 
                         <div>
                             <h3  style={{display:"inline"}}>{weatherData?.name}</h3> 
-                            <img src={`https://www.countryflags.io/${weatherData?.sys.country}/flat/24.png`} alt={`Flag of ${weatherData?.sys.country.toUpperCase()}`}></img>
+                            <img src={`https://www.countryflags.io/${weatherData?.sys.country}/flat/24.png`} alt={`Flag of ${weatherData?.sys.country.toUpperCase()}`} style={{height:"100%", verticalAlign: "middle" }}></img>
                         </div>: <h3>Unrecognized</h3>}
                         <p>{latLongString}</p>
                         <div className="">
@@ -120,7 +120,6 @@ function InfoScreen() {
                         </div>
                         <div className="d-flex justify-content-center align-items-center mb-3">
                             <h1 className="mx">{weatherData?.main.temp + unitString}</h1>
-                            <p>{weatherData?.main.feels_like + unitString}</p>
                         </div>
                         <div className="d-flex align-items-center justify-content-center">
                             <div className="mx-5">
@@ -138,10 +137,6 @@ function InfoScreen() {
                             </div>
 
                         </div>
-                        <button className="swap-button" onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(toggleIsMap())
-                    }}>To Map</button>
                     </div>
                     <Footer />
                     
