@@ -24,3 +24,14 @@
     text-decoration: underline;
   }
 }
+
+@media only screen and (aspect-ratio: 10/16) {
+  .show-screen {
+    position: absolute;
+    top: 0;
+    left: 0 !important;
+  }
+  .show-screen button:hover {
+    text-decoration: underline;
+  }
+}

@@ -28,3 +28,16 @@
     transition: all 0.1s ease-in;
   }
 }
+
+@media only screen and (aspect-ratio: 10/16) {
+  #toggle-button {
+    display: block;
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transition: all 0.1s ease-in;
+  }
+}

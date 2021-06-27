@@ -95,26 +95,28 @@ function InfoScreen() {
                     <NavBar />
                     <div id="location-data">
                         <div>
-                            <h1 id="time">
-                                {dateTime.toLocaleTimeString(locale, {
-                                    timeZone: (timezone?.length > 0) ? timezone : Moment.tz.guess()
-                                })}
-                            </h1>
-                            <p id="day-date">
-                                {dateTime.toLocaleDateString(locale, {
-                                    timeZone: (timezone?.length > 0) ? timezone : Moment.tz.guess(),
-                                    weekday: 'long',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
-                            </p>
+                            <div>
+                                <h1 id="time">
+                                    {dateTime.toLocaleTimeString(locale, {
+                                        timeZone: (timezone?.length > 0) ? timezone : Moment.tz.guess()
+                                    })}
+                                </h1>
+                                <p id="day-date">
+                                    {dateTime.toLocaleDateString(locale, {
+                                        timeZone: (timezone?.length > 0) ? timezone : Moment.tz.guess(),
+                                        weekday: 'long',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </p>
+                            </div>
+                            {!(weatherData?.name.length === 0) ? 
+                            <div>
+                                <h3  style={{display:"inline"}}>{weatherData?.name}</h3> 
+                                <img src={`https://www.countryflags.io/${weatherData?.sys.country}/flat/24.png`} alt={`Flag of ${weatherData?.sys.country.toUpperCase()}`} style={{height:"100%", verticalAlign: "middle" }}></img>
+                            </div>: <h3>Unrecognized</h3>}
+                            <p>{latLongString}</p>
                         </div>
-                        {!(weatherData?.name.length === 0) ? 
-                        <div>
-                            <h3  style={{display:"inline"}}>{weatherData?.name}</h3> 
-                            <img src={`https://www.countryflags.io/${weatherData?.sys.country}/flat/24.png`} alt={`Flag of ${weatherData?.sys.country.toUpperCase()}`} style={{height:"100%", verticalAlign: "middle" }}></img>
-                        </div>: <h3>Unrecognized</h3>}
-                        <p>{latLongString}</p>
                         <div className="">
                             {weatherData?.weather[0] ? <img src={require(`../../assets/openweathermap/${weatherData?.weather[0].icon}.svg`).default} height="250px" alt={weatherData?.weather[0].description} style={{margin:"-20px 0 0 0"}}></img> : null}
                         </div>
