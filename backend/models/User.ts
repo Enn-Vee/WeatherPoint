@@ -1,10 +1,15 @@
 export {};
 const mongoose = require('mongoose')
 const Bookmark = require('./Bookmark').BookmarkSchema
+const findOrCreate = require('mongoose-find-or-create')
 
 const UserSchema = mongoose.Schema({
     provider: {
         type: String,
+        required: true
+    },
+    name: {
+        type:String,
         required: true
     },
     googleID: {
@@ -42,5 +47,7 @@ const UserSchema = mongoose.Schema({
         required: false
     }
 })
+
+UserSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model('User', UserSchema)

@@ -1,11 +1,14 @@
-import React, { ChangeEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import React from 'react'
+import { useAppDispatch } from '../../redux/hooks'
 import { setLanguage, setUnit } from '../../redux/reducers/infoSettingsReducer';
 import { toggleIsMap } from '../../redux/reducers/isMapReducer';
+import { Button } from '@material-ui/core'
 import './Footer.css'
 
 function Footer() {
     const dispatch = useAppDispatch();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleLanguangeChange = (lang:string) => {
         dispatch(setLanguage(lang));
     }
@@ -15,30 +18,30 @@ function Footer() {
             <div>
                 <ul>
                     <li className="footer-item" >
-                        <button onClick={(e) => {
+                        <Button onClick={(e) => {
                             e.preventDefault()
                             dispatch(setUnit('standard'))
-                        }}>Standard</button>
+                        }}><span className="button-text">Standard</span></Button>
                     </li>
                     <li className="footer-item">
-                        <button onClick={(e) => {
+                        <Button onClick={(e) => {
                             e.preventDefault()
                             dispatch(setUnit('metric'))
-                        }}>Metric</button>
+                        }}><span className="button-text">Metric</span></Button>
                     </li>
                     <li className="footer-item">
-                        <button onClick={(e) => {
+                        <Button onClick={(e) => {
                             e.preventDefault()
                             dispatch(setUnit('imperial'))
-                        }}>Imperial</button>
+                        }}><span className="button-text">Imperial</span></Button>
                     </li>
                 </ul>
             </div>
             <div className="footer-item">
-                <button id="map-toggler" onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(toggleIsMap());
-                }}>Go To Map</button>
+                <Button id="map-toggler" onClick={(e) => {
+                    e.preventDefault()
+                    dispatch(toggleIsMap())
+                }}><span className="button-text">To Map</span></Button>
             </div>
             {/*<div style={{display:"none"}}>
                 <select>

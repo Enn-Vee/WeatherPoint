@@ -3,23 +3,35 @@
   font-weight: 800;
 }
 
+#condition-image {
+  margin: 0 0 -15px 0;
+}
+
 @media only screen and (max-width: 420px) {
   #time {
     font-size: 3.5rem;
   }
 }
 
+@media only screen and (min-width: 768px) and (min-height: ) {
+}
+
 #location-data {
-  position: absolute;
-  top: 50%;
+  position: relative;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 100%;
+  overflow-y: auto;
 }
 
 #data {
-  position: relative;
   height: 100%;
+  overflow-y: auto;
+}
+
+.MuiSnackbar-anchorOriginBottomLeft {
+  bottom: 60px !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -35,7 +47,6 @@
   #toggle-button {
     display: block;
   }
-
   #data {
     position: absolute;
     top: 0;

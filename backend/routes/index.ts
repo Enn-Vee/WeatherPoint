@@ -6,9 +6,10 @@ module.exports = (passport:any) => {
     
     //router.use('/user', require('./user.ts')(passport));
     router.use('/auth', require('./auth.ts')(passport))
+    router.use('/bookmarks', require('./bookmarks.ts')(passport))
     router.post('/logout', (req:any, res:any) => {
         req.logOut();
-        res.send('hi')
+        res.send('logged out')
     })
     
     return router

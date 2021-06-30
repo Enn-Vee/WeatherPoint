@@ -13,6 +13,7 @@ ul {
 #map-toggler {
   display: none;
   border-left: 1px solid;
+  border-radius: 0;
   border-color: white;
 }
 
@@ -39,6 +40,16 @@ select {
 
 .footer-item button {
   color: white;
+}
+
+.button-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.footer-item button:hover {
+  text-decoration: underline;
 }
 
 .footer-item + .footer-item {

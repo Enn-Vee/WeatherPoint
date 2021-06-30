@@ -1,5 +1,5 @@
 export{}
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport')
 const db = require('./database-configs')
 const User = require('../models/User')
@@ -10,43 +10,30 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:4000/auth/google/callback",
     passReqToCallback: true
-}, function(request:any, accessToken:any, refreshToken:any, profile:any, done:Function) {
-    let details = {
+}, async function(request:any, accessToken:any, refreshToken:any, profile:any, done:Function) {
+    let user= {
+        name: profile._json.given_name,
         provider: profile.provider,
         googleID: profile.id,
-        email: profile.email,
+        email: profile._json.email,
         picture: profile.photos[0].value
     }
-    const user = new User(details)
-    let query = User.find({googleID: profile.id}).select('-_id -bookmarks -firstLogIn -lastLoggedIn -__v')
-    query.exec((error:any, result:any) => {
-        if(error) 
-            done(error, null)
-        if(result.length === 0)
-            user.save()
-            .then((res:any) => {
-                return done(null, res[0])
-            })
-            .catch((err:any) => {
-                return done(err, null)
-            })
-        else 
-            return done(null, result[0])
+
+    User.findOrCreate(user, (error:Error, result:Array<any>) => {
+        if(error)
+            return done(error, null)
+        return done(null, result);
     })
 }));
 
 /* Serializes user to a session */
 passport.serializeUser((user:any, done:any) => {
-    switch(user.provider) {
-        case "google":
-            done(null, {googleID: user.googleID});
-            break;
-    }
+    done(null, user._id);
 })
 
 /* Finds user with the given ID. Stores it to req.user */
-passport.deserializeUser((user:any, done:any) => { 
-    let query = User.findOne(user).select('-_id -bookmarks -firstLogIn -lastLoggedIn -__v');
+passport.deserializeUser((id:any, done:any) => { 
+    let query = User.findOne({_id: id}).select('-picture -bookmarks -firstLogIn -lastLoggedIn -__v');
     query.exec((error:any, result:any) => {
         if(error)
             done(error, null);

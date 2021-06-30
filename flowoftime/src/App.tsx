@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import InfoScreen from './components/MainScreen/InfoScreen';
-import WeatherMap from './components/WeatherMap/WeatherMap'
-import LatLngObject from './interfaces/Coordinates';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css'
+import Success from './components/Authorization/Success';
+import Main from './components/MainScreen/Main';
+import { getBookmarks, getUser } from './redux/reducers/userReducer';
 
 function App() {
 
-  const [center, setCenter] = useState<LatLngObject>({ lat: 39.952584, lng: -75.165221 })
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (navigator.geolocation)
-      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        setCenter(pos);
-      })
-  }, [])
+    dispatch(getUser());
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getBookmarks());
+  },[dispatch])
 
   return (
-    <div className="App" style={{ overflow: "hidden" }}>
-      <div className="row map-and-info">
-          <InfoScreen />
-          <WeatherMap {...center} />
-      </div>
-    </div>
+    <Router>
+        <div className="App" style={{ overflow: "hidden" }}>
+          <Switch>
+            <Route path="/login/success" component={Success}/>
+            <Route exact path="/" component={Main} />
+          </Switch>
+        </div>
+    </Router>
   );
 }
 

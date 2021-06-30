@@ -19,8 +19,7 @@ export const coordinatesSlice = createSlice({
 })
 
 export const { changeCoordinates } = coordinatesSlice.actions
-
 export const selectLat = (state: RootState) => state.coordinates.lat
-export const selectLong = (state: RootState) => state.coordinates.lng
+export const selectLng= (state: RootState) => state.coordinates.lng
 
 export default coordinatesSlice.reducer;

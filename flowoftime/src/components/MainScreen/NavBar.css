@@ -25,6 +25,18 @@ nav {
   font-size: 1.5rem;
 }
 
+@media only screen and (max-width: 540px) {
+  #navbar-greeting {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+  #navbar-greeting {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .navbar {
     width: 100%;

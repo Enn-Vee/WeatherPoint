@@ -1,0 +1,15 @@
+.MuiDrawer-paperAnchorRight {
+  right: 50% !important;
+}
+.MuiDrawer-paper {
+  width: 400px;
+}
+
+.MuiListSubheader-sticky {
+  position: relative !important;
+}
+@media only screen and (max-width: 768px) {
+  .MuiDrawer-paperAnchorRight {
+    right: 0 !important;
+  }
+}

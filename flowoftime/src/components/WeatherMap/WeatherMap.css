@@ -11,9 +11,23 @@
   color: white;
 }
 
+#bookmark-button {
+  display: block;
+  position: absolute;
+  top: 1vh;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 215px;
+  height: 35px;
+  border-radius: 30px;
+  color: white;
+  z-index: 2500;
+}
+
 #map {
   position: relative;
   height: 100%;
+  z-index: 2000;
 }
 
 @media only screen and (max-width: 768px) {
