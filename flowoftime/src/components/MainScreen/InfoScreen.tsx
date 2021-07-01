@@ -60,6 +60,10 @@ function InfoScreen() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lat, lng])
 
+    useEffect(() => {
+        document.title = `Weather Point | ${weatherData?.name ? weatherData.name : "Unrecognized"}`
+    },[weatherData?.name])
+
     /**
      * Real time clock. Also sets the language to the user's language when the user gives permission
      */

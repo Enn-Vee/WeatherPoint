@@ -1,0 +1,6 @@
+{
+    "module": "es2015",
+    "compilerOptions": {
+        "esModuleInterop": true
+    }
+}

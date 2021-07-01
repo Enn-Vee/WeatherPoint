@@ -15,7 +15,7 @@ function Modal(props: ModalProps) {
 
     const googleLogInRedirect = async () => {
         let timer: NodeJS.Timeout | null = null;
-        const loginWindow = window.open("http://localhost:4000/auth/google/", "_blank", "width=500, height=600, resizable=no" )
+        const loginWindow = window.open(process.env.REACT_APP_BACKEND_URL + "/auth/google/", "_blank", "width=500, height=600, resizable=no" )
         if(loginWindow) {
             loginWindow.focus()
             timer = setInterval(() => {

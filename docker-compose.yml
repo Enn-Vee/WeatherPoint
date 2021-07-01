@@ -3,13 +3,10 @@ services:
   web:
     container_name: weatherpoint-frontend
     build: ./flowoftime
-    restart: always
     ports:
-      - "3000:3000"
+      - "3000:80"
     volumes:
       - ./flowoftime:/app/frontend
-    env_file:
-      - frontend.env
   backend:
     container_name: weatherpoint-backend
     build: ./backend
@@ -20,10 +17,3 @@ services:
       - ./backend:/usr/src/app
     env_file:
       - backend.env
-    depends_on:
-      - db
-  db:
-    container_name: weatherpoint-database
-    image: mongo
-    ports:
-      - "27017:27017"

@@ -12,9 +12,10 @@ const db = require('./configs/database-configs')
 require('./configs/passport-configs.ts');
 
 const whitelist =  ['http://127.0.0.1:3000', 'http://localhost:3000'];
+const prodWhitelist = ['https://weatherpoint.dev/', 'https://www.weatherpoint.dev/']
 app.use(cors({
     credentials: true, 
-    origin: "http://localhost:3000"
+    origin: process.env.NODE_ENV ==="production" ? 'https://weatherpoint.dev': "http://localhost:3000"
 }));
 
 app.use(express.json())
@@ -24,7 +25,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge:1000*60*60*24 //Cookie lasts for 1 day.
+        maxAge:1000*60*60*24, //Cookie lasts for 1 day.
     }
 }));
 app.use(passport.initialize());
