@@ -7,7 +7,6 @@ function Main() {
     const [center, setCenter] = useState<Coordinates>({ lat: 39.952584, lng: -75.165221 })
 
     useEffect(() => {
-        console.log(process.env.REACT_APP_BACKEND_URL);
         if (navigator.geolocation)
         navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
             const pos = {

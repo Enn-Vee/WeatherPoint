@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { changeCoordinates } from '../../redux/reducers/coordinatesReducer';
 import { toggleIsMap } from '../../redux/reducers/isMapReducer';
 import { Button, FormControlLabel, Switch } from '@material-ui/core'
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import "./WeatherMap.css"
 
 function WeatherMap(center: LatLngObject) {
@@ -61,7 +60,7 @@ function WeatherMap(center: LatLngObject) {
                     <Marker position={{ lat: lat, lng: lng }} />
                     { showBookmarked && user?.bookmarks?.map(bookmark => {
                         return (
-                            <Marker position= {{lat: bookmark.latitude, lng: bookmark.longitude}} />
+                            <Marker key={bookmark._id} position= {{lat: bookmark.latitude, lng: bookmark.longitude}} />
                         );
                     })}
                 </GoogleMap> : null}

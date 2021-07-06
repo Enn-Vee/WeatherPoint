@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web:
+    container_name: weatherpoint-frontend
+    build:
+      context: ./flowoftime
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:80"
+    volumes:
+      - ./flowoftime:/app/frontend
+  backend:
+    container_name: weatherpoint-backend
+    build: ./backend
+    restart: always
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/usr/src/app
+    env_file:
+      - backend.env

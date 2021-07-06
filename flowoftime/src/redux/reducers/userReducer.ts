@@ -63,7 +63,6 @@ export const userSlice = createSlice({
                 state.bookmarks = action.payload
         })
         builder.addCase(deleteBookmark.fulfilled, (state, action) => {
-            console.log(deleteBookmark)
             if(state)
                 state.bookmarks = action.payload
         })

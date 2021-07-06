@@ -1,8 +1,8 @@
 FROM node:latest
-WORKDIR /usr/src/app
-COPY . .
+WORKDIR /app
+ADD ./package.json /app
 RUN npm install
-RUN npm install -g ts-node
-ENV NODE_ENV=production
+RUN npm install -g nodemon
+ADD . /app
 EXPOSE 4000
 CMD ["npm", "start"]

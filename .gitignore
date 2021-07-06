@@ -1,6 +1,7 @@
 
 ## Environment Variables ##
 *.env
+.env.*
 
 # Created by https://www.toptal.com/developers/gitignore/api/react,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,git

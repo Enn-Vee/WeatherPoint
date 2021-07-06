@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { useAppDispatch } from './redux/hooks';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css'
 import Success from './components/Authorization/Success';
 import Main from './components/MainScreen/Main';
-import { getBookmarks, getUser } from './redux/reducers/userReducer';
+import { getUser } from './redux/reducers/userReducer';
 
 function App() {
 
@@ -13,10 +13,6 @@ function App() {
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch])
-
-  useEffect(() => {
-    dispatch(getBookmarks());
-  },[dispatch])
 
   return (
     <Router>

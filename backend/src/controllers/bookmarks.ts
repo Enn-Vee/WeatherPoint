@@ -9,7 +9,7 @@ const User = require('../models/User')
 
 exports.getBookmarksByID = (req: PassportRequest, res: Response) => {
     const query = User.findOne({_id: req.user._id}).select("bookmarks")
-    query.exec((error:any, result:any) => {
+    query.exec((error:Error, result:any) => {
         if(error)
             throw error;
         res.send(result.bookmarks)

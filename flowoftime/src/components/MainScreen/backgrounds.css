@@ -4,9 +4,6 @@
   border-color: black;
 }
 
-.clear button {
-}
-
 .night {
   background: linear-gradient(5deg, #0b0049, #005a7b, #005a7b);
   color: white !important;

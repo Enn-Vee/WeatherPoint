@@ -1,7 +1,6 @@
 export{}
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport')
-const db = require('./database-configs')
 const User = require('../models/User')
 
 /* Defines the users are authenticated using a local strategy. */
@@ -18,7 +17,7 @@ passport.use(new GoogleStrategy({
         email: profile._json.email,
         picture: profile.photos[0].value
     }
-
+    
     User.findOrCreate(user, (error:Error, result:Array<any>) => {
         if(error)
             return done(error, null)

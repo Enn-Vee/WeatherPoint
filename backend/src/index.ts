@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+//import { Request, Response, NextFunction } from "express";
 
 const dotenv = require('dotenv');
 dotenv.config({path: './.env'});
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const passport: any = require('passport');
+const passport = require('passport');
 
 const app = express();
 const db = require('./configs/database-configs')
@@ -30,7 +30,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(require("./routes/")(passport));
 
 app.listen(process.env.PORT || 4000, (err:Error) =>{

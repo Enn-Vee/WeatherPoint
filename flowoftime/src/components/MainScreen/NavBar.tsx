@@ -30,7 +30,7 @@ function NavBar() {
 
     return (
         <>
-            <nav className="navbar navbar-expand px-5 pt-3">
+            <nav className="navbar navbar-expand px-5 pt-3 mb-5">
                     <h1 className="navbar-brand" >WeatherPoint</h1>
                     <div className="ms-auto navbar-nav ">
                         { user ? 

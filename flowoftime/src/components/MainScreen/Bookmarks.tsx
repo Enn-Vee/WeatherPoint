@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction } from 'react'
+import React, { SetStateAction } from 'react'
 import './Bookmarks.css'
 import {ListItemAvatar, Avatar, ListItemSecondaryAction,  IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListSubheader} from '@material-ui/core'
 import { makeStyles, createStyles, Theme} from '@material-ui/core/styles';

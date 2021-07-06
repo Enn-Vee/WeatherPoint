@@ -12,6 +12,7 @@ import { addBookmark, getBookmarks } from '../../redux/reducers/userReducer';
 import {Fab, Tooltip, Snackbar} from '@material-ui/core/'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import RoomIcon from '@material-ui/icons/Room'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 function InfoScreen() {
     const [weatherData, setWeatherData] = useState<OpenWeatherMap | null>(null)
@@ -25,38 +26,58 @@ function InfoScreen() {
     const user = useAppSelector(state => state.user)
     const isMap = useAppSelector(state => state.isMap)
 
+    const fetchWeatherInfo = async () => {
+        let query = {
+            lat: lat.toString(),
+            lng: lng.toString(),
+            unit
+        }
+        let queryString: string = "?"+ new URLSearchParams(query).toString();
+        await axios.get(process.env.REACT_APP_BACKEND_URL+'/location/weather'+queryString)
+            .then(res => {
+                setWeatherData(res.data);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+    const fetchTimezoneInfo = async () => {
+        let query = {
+            lat: lat.toString(),
+            lng: lng.toString()
+        }
+        let queryString: string = "?"+ new URLSearchParams(query).toString();
+        await axios.get(process.env.REACT_APP_BACKEND_URL+'/location/timezone'+queryString)
+        .then(res => {
+            dispatch(setTimezone(res.data.zoneName))
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
     /**
      * Fetches weather data
      */
     useEffect(() => {
-        const fetchWeatherInfo = async () => {
-            await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=${language}&units=${unit}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
-                .then(res => {
-                    setWeatherData(res.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                })
-        }
+        
         setIsFetchingData(true);
         fetchWeatherInfo();
         setIsFetchingData(false);
-    }, [language, lat, lng, unit])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [language, unit])
 
     /**
      * Fetches timezone.
      */
     useEffect(() => {
-        const fetchTimezoneInfo = async() => {
-            await axios.get(`https://api.timezonedb.com/v2.1/get-time-zone?by=position&lat=${lat}&lng=${lng}&format=json&key=${process.env.REACT_APP_TIMEZONEDB_API_KEY}`)
-            .then(res => {
-                dispatch(setTimezone(res.data.zoneName))
-            })
-            .catch(e => {
-                console.log(e)
-            })
+        const fetchData = async () => {
+            await fetchWeatherInfo();
+            await fetchTimezoneInfo();
+            setIsFetchingData(false);
         }
-        fetchTimezoneInfo();
+        setIsFetchingData(true)
+        fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lat, lng])
 
@@ -70,7 +91,8 @@ function InfoScreen() {
     useEffect(() => {
         if (navigator)
             dispatch(setLanguage(navigator.language))
-        dispatch(getBookmarks());
+        if(user)
+            dispatch(getBookmarks());
         let timeUpdate = setInterval(() => setDateTime(new Date()), 1000)
         return () => {
             clearInterval(timeUpdate);
@@ -131,11 +153,10 @@ function InfoScreen() {
       };
 
     return (
-        <>
-            {!isFetchingData ?
-                <div id="data" className={`container p-0 text-center col-md-6 background clear position-relative
-                ${weatherData?.weather[0].icon.charAt(2) === 'n'? 'night' : ''} ${isMap ? '' : 'show-screen'}`}>
+        <div id="data" className={`container p-0 text-center col-md-6 background clear position-relative
+        ${weatherData?.weather[0].icon.charAt(2) === 'n'? 'night' : ''} ${isMap ? '' : 'show-screen'}`}>
                     <NavBar />
+                    {!isFetchingData ? <>
                     <div id="location-data">
                         {/* Time and location */}
                         <div>
@@ -201,14 +222,19 @@ function InfoScreen() {
                             </div>
                         </div>
                     </div>
+                    </> : 
+                    <div className="flex-grow-1">
+                        <div className= "position-absolute" style={{top:"50%", left:"50%", transform:"translate(-50%, -50%)"}}>
+                            <ClipLoader size={100} color={weatherData?.weather[0].icon.charAt(2) === 'n' ? "#FFFFFF" : "#000000"}/>
+                        </div>
+                    </div>}     
                     <Footer />    
                     <Snackbar  anchorOrigin={{vertical:'bottom', horizontal:'left'}} open={success} autoHideDuration={2000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="success">
                             Successfully bookmarked location!
                         </Alert>
-                    </Snackbar>
-                </div> : null}
-        </>
+                    </Snackbar> 
+        </div>
     )
 }
 
