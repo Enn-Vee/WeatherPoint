@@ -1,13 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
-import LatLngObject from '../../interfaces/Coordinates';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { changeCoordinates } from '../../redux/reducers/coordinatesReducer';
 import { toggleIsMap } from '../../redux/reducers/isMapReducer';
 import { Button, FormControlLabel, Switch } from '@material-ui/core'
 import "./WeatherMap.css"
 
-function WeatherMap(center: LatLngObject) {
+function WeatherMap() {
 
     const [map, setMap] = useState<GoogleMap | null>(null);
     const [showBookmarked, setShowBookmarked] = useState<boolean>(true);
@@ -48,7 +47,7 @@ function WeatherMap(center: LatLngObject) {
             {isLoaded ?
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '100%' }}
-                    center={center}
+                    center={{ lat: lat/*39.952584*/, lng: lng/*-75.165221*/ }}
                     zoom={11}
                     onLoad={onLoad}
                     onUnmount={onUnmount}

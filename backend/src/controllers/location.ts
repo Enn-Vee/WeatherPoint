@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 let axios = require('axios');
 
 exports.getWeatherData = (req: Request, res: Response) => {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${req.query.lat}&lon=${req.query.lng}&unit=${req.query.unit}&appid=${process.env.OPENWEATHERMAP_API_KEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${req.query.lat}&lon=${req.query.lng}&units=${req.query.unit}&appid=${process.env.OPENWEATHERMAP_API_KEY}`)
     .then((result:any) => {
         res.send(result.data);
     })

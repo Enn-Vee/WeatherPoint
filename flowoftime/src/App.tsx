@@ -14,6 +14,8 @@ function App() {
     dispatch(getUser());
   }, [dispatch])
 
+  
+
   return (
     <Router>
         <div className="App" style={{ overflow: "hidden" }}>

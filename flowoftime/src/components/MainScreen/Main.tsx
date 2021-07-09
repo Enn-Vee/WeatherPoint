@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import {useAppDispatch} from '../../redux/hooks';
 import WeatherMap from '../WeatherMap/WeatherMap';
 import InfoScreen from './InfoScreen';
-import Coordinates from '../../interfaces/Coordinates'
+import { changeCoordinates } from '../../redux/reducers/coordinatesReducer';
 
 function Main() {
-    const [center, setCenter] = useState<Coordinates>({ lat: 39.952584, lng: -75.165221 })
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (navigator.geolocation)
-        navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-            const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-            };
-            setCenter(pos);
-        })
+            navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+                const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+                };
+                dispatch(changeCoordinates(pos))
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     return (
     <div className="row map-and-info">
           <InfoScreen />
-          <WeatherMap {...center} />
+          <WeatherMap />
     </div>
     )
 }

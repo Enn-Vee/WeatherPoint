@@ -1,13 +1,14 @@
-import React, { SetStateAction } from 'react'
+import React, { useState, SetStateAction } from 'react'
 import './Bookmarks.css'
 import {ListItemAvatar, Avatar, ListItemSecondaryAction,  IconButton, SwipeableDrawer, List, ListItem, ListItemText, ListSubheader} from '@material-ui/core'
 import { makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import User from '../../interfaces/User'
+import User, { Bookmark } from '../../interfaces/User'
 import { changeCoordinates } from '../../redux/reducers/coordinatesReducer';
 import { deleteBookmark } from '../../redux/reducers/userReducer';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 interface BookmarkProps {
   isDrawn: boolean,
@@ -27,6 +28,7 @@ function Bookmarks(props:BookmarkProps) {
     const user = useAppSelector<User>(state => state.user)
     const dispatch = useAppDispatch();
     const classes = useStyles();
+    const [beingDeleted, setBeingDeleted] = useState<Set<string | undefined>>(new Set())
 
     const toggleDrawer = () => {
         props.setIsDrawn(prev => !prev)
@@ -52,6 +54,17 @@ function Bookmarks(props:BookmarkProps) {
     const handleLocationClick = (lat: number, lng: number):void  => {
         dispatch(changeCoordinates({lat: lat, lng: lng}))
         toggleDrawer()
+    }
+
+    const handleDeletion = async (bookmark:Bookmark) => {
+          setBeingDeleted(prev => prev.add(bookmark!._id))
+          dispatch(deleteBookmark(bookmark))
+          .then(() => {
+              setBeingDeleted(prev => { 
+                  prev.delete(bookmark!._id);
+                  return prev;
+              })
+          });
     }
 
     const list = () => (
@@ -84,12 +97,14 @@ function Bookmarks(props:BookmarkProps) {
                         </ListItemAvatar>
                         <ListItemText primary={bookmark.name} secondary ={getLatLongString(bookmark.latitude, bookmark.longitude)} />
                         <ListItemSecondaryAction>
+                          {beingDeleted.has(bookmark._id) ? 
+                          <PulseLoader size={5} color="#4A90E2"/> : 
                           <IconButton edge="end" aria-label="delete" onClick={(e) => {
                             e.preventDefault();
-                            dispatch(deleteBookmark(bookmark));
+                            handleDeletion(bookmark);
                           }}>
                             <DeleteIcon />
-                          </IconButton>
+                          </IconButton>}
                         </ListItemSecondaryAction>
                       </ListItem>
               )

@@ -7,6 +7,7 @@ import './NavBar.css'
 import Bookmarks from './Bookmarks';
 import {Avatar, Button, Menu, MenuItem} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import BeatLoader from 'react-spinners/BeatLoader'
 
 function NavBar() {
     const user = useAppSelector<User | null>(state => state.user);
@@ -14,6 +15,7 @@ function NavBar() {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isDrawn, setIsDrawn] = useState<boolean>(false);
+    const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -26,11 +28,10 @@ function NavBar() {
     const toggleDrawer = () => {
         setIsDrawn(prev => !prev);
     }
-    
 
     return (
         <>
-            <nav className="navbar navbar-expand px-5 pt-3 mb-5">
+            <nav className="navbar navbar-expand mt-4 px-5 mb-5">
                     <h1 className="navbar-brand" >WeatherPoint</h1>
                     <div className="ms-auto navbar-nav ">
                         { user ? 
@@ -74,11 +75,18 @@ function NavBar() {
                             toggleDrawer();
                             handleClose();
                         }}>My Bookmarks</MenuItem>
-                        <MenuItem onClick={(e) => {
+                        
+                        {isLoggingOut ? 
+                        <div className="text-center">
+                            <BeatLoader color="#4A90E2" size={5} />
+                        </div>: <MenuItem onClick={(e) => {
                             e.preventDefault();
-                            dispatch(logOut());
+                            setIsLoggingOut(true);
+                            dispatch(logOut()).then(() => {
+                                setIsLoggingOut(false);
+                            });
                             handleClose();
-                        }}>Logout</MenuItem>
+                        }}>Logout</MenuItem>}
                     </Menu>
             </nav>
             <Modal show={showModal} setShow={setShowModal}></Modal>

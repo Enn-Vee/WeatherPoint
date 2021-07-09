@@ -60,10 +60,7 @@ function InfoScreen() {
      * Fetches weather data
      */
     useEffect(() => {
-        
-        setIsFetchingData(true);
         fetchWeatherInfo();
-        setIsFetchingData(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [language, unit])
 
